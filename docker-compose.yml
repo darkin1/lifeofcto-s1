@@ -1,0 +1,11 @@
+webapp:
+  image: webdevops/php-nginx:ubuntu-16.04
+  volumes:
+    - ./project/:/app/
+  working_dir: /app/
+  environment:
+    - APP_ENV=local
+    - VIRTUAL_HOST=http://app.project.local
+  restart: on-failure:5
+  ports:
+    - 127.0.0.1:8002:80
