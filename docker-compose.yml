@@ -9,3 +9,26 @@ webapp:
   restart: on-failure:5
   ports:
     - 127.0.0.1:8002:80
+  links:
+    - mysql
+    - redis
+
+mysql:
+  image: mysql:latest
+  volumes:
+    - ./db/:/var/lib/mysql/
+  environment:
+    - MYSQL_ROOT_PASSWORD=toor
+    - MYSQL_DATABASE=lifeofcto
+    - MYSQL_USER=dariusz
+    - MYSQL_PASSWORD:qwerty
+  ports:
+    - 127.0.0.1:8000:3306
+  restart: on-failures:5
+  log_opt:
+    max-size: 10k
+
+redis:
+  image: redis:3.0.7-alpine
+  ports:
+    - 6379:6379
